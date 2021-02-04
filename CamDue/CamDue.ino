@@ -28,7 +28,7 @@ void writeReg(byte regID, byte regVal){
   Wire.write(regID);
   Wire.write(regVal);
   if (Wire.endTransmission(true)) {
-    SerialUSB.print("ERROR REG 0x");
+    SerialUSB.print(F("ERROR REG 0x"));
     SerialUSB.println(regID,HEX);
   }
   delay(20);
@@ -46,8 +46,10 @@ byte readReg(byte regID){
   return regVal;
 }
 
+
+
 void setup() {
-  
+
   pinMode(RESET,OUTPUT);
   digitalWrite(RESET,HIGH);
   digitalWrite(RESET,LOW);
@@ -83,13 +85,13 @@ void setup() {
   
   writeReg(R_CLKRC,0x06);      //Use external clock
   
-  SerialUSB.print("PID=0x");
+  SerialUSB.print(F("PID=0x"));
   SerialUSB.println(readReg(R_PID),HEX); //PID should be 0x76
-  SerialUSB.print("VER=0x");
+  SerialUSB.print(F("VER=0x"));
   SerialUSB.println(readReg(R_VER),HEX); //VER should be 0x73
 
   
-  SerialUSB.println("READY");
+  SerialUSB.println(F("READY"));
 }
 
 void setupDefault() {
@@ -173,10 +175,11 @@ void captureImg(uint16_t width, uint16_t height, bool chroma){
       while (!(REG_PIOD_PDSR & (1 << 10)));                   //wait PCLK high
     }
   }
-  interrupts();
+
   for(y = 0;y < height;y++){
     for(x = 0; x < width;x++){
        SerialUSB.write(frame[y][x]);
     }
   }
+  interrupts();
 }
