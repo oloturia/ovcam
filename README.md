@@ -22,5 +22,7 @@ it shows the image and has two inputs -
  write accepts two hex numbers, it writes a value in a register
 
 OV7670 wiring with Due is shown in the #define section before the code except for the I²C pins:
+
 SDA --> SIOD
+
 SCL --> SIOC
