@@ -92,6 +92,7 @@ void setup() {
 
   
   SerialUSB.println(F("READY"));
+
 }
 
 void setupDefault() {
@@ -143,12 +144,19 @@ void setupYUV422() {
 }
 
 void loop() {
-  char buffer_USB[1];
+  char buffer_USB[2];
   if(SerialUSB.available() > 0) {
-    captureImg(WIDTH,HEIGHT,0);
-    captureImg(WIDTH,HEIGHT,1);
-    while(SerialUSB.available()){
-      SerialUSB.readBytes(buffer_USB,1);
+    SerialUSB.readBytes(buffer_USB,2);
+    if(buffer_USB[0] != 0xD0 && buffer_USB[1] == 0xD0) {
+
+      SerialUSB.println(readReg(buffer_USB[0]));
+    } else if (buffer_USB[0] != 0xD0 && buffer_USB[1] !=0xD0) {
+
+      writeReg(buffer_USB[0],buffer_USB[1]);
+    } else {
+
+      captureImg(WIDTH,HEIGHT,0);
+      captureImg(WIDTH,HEIGHT,1);
     }
   }
 }

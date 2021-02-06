@@ -3,14 +3,13 @@
 import serial
 import math
 import time
+import logging
 
 
-def readImage(port_dev,width,height,regId=0xD0,regVal=0xD0):
+def readImage(port_dev,width=320,height=240,regId=0xD0,regVal=0xD0):
 	ser = serial.Serial(port_dev, 8000000)
 	ser.flushInput()
-
-	ser.write(bytes(regId))
-	ser.write(bytes(regVal))
+	ser.write(bytearray([regId,regVal]))
 	
 	if regId == 0xD0 and regVal == 0xD0:
 		dataY = ser.read(size=width*height)
@@ -44,9 +43,9 @@ def readImage(port_dev,width,height,regId=0xD0,regVal=0xD0):
 
 		ser.close()
 		return bitmap
-	elif regId == 0xD0 and regVal != 0xD0:
-		value = ser.read(8)
-		return value
-		
+	elif regId != 0xD0 and regVal == 0xD0:
+		value = ser.read(1)
+		return hex(ord(value))
+
 
 
