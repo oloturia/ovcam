@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include <Wire.h>
 #include "registers.h"
 
@@ -90,7 +91,6 @@ void setup() {
   SerialUSB.print(F("VER=0x"));
   SerialUSB.println(readReg(R_VER),HEX); //VER should be 0x73
 
-  
   SerialUSB.println(F("READY"));
 
 }
@@ -144,9 +144,9 @@ void setupYUV422() {
 }
 
 void loop() {
-  char buffer_USB[2];
+  char buffer_USB[3];
   if(SerialUSB.available() > 0) {
-    SerialUSB.readBytes(buffer_USB,2);
+    SerialUSB.readBytes(buffer_USB,3);
     if(buffer_USB[0] != 0xD0 && buffer_USB[1] == 0xD0) {
 
       SerialUSB.println(readReg(buffer_USB[0]));
@@ -156,7 +156,9 @@ void loop() {
     } else {
 
       captureImg(WIDTH,HEIGHT,0);
-      captureImg(WIDTH,HEIGHT,1);
+      if (buffer_USB[2] == 0x01) {
+        captureImg(WIDTH,HEIGHT,1);
+      }
     }
   }
 }
@@ -190,4 +192,5 @@ void captureImg(uint16_t width, uint16_t height, bool chroma){
     }
   }
   interrupts();
+
 }
