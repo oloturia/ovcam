@@ -1,5 +1,5 @@
 # ovcam
-A small interface for interfacing an Arduino Due with a OV7670.
+A small collection of scripts for interfacing an Arduino Due with a OV7670.
 
 Working only with an Arduino Due at the moment, mainly because Uno and smaller MC don't have enough SRAM for an entire image, and I don't have yet figured out how to split the transmission in an efficient way. For the same reason, the framerate is quite slow. Besides, Due has 3.3v logic levels so there is no need for voltage splitters.
 
