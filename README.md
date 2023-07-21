@@ -1,5 +1,5 @@
 # ovcam
-a small interface for interfacing an Arduino Due with a OV7670
+A small interface for interfacing an Arduino Due with a OV7670.
 
 Working only with an Arduino Due at the moment, mainly because Uno and smaller MC don't have enough SRAM for an entire image, and I don't have yet figured out how to split the transmission in an efficient way. For the same reason, the framerate is quite slow. Besides, Due has 3.3v logic levels so there is no need for voltage splitters.
 
@@ -26,3 +26,5 @@ OV7670 wiring with Due is shown in the #define section before the code except fo
 SDA --> SIOD
 
 SCL --> SIOC
+
+Also PWDN should be connected to GND. PWDN places the cam in standby if it's 1 (+3.3v) and wakes it up if it's 0 (0v).
