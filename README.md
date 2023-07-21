@@ -10,15 +10,17 @@ Y, Cb and Cr are 1 byte and they are transmitted by the pins D0-D7 on each PCLK 
 
 Python scripts need some libraries
 
-showYUV422.py <port, default /dev/ttyACM0>
+> showYUV422.py <port, default /dev/ttyACM0>
 
 shows the image with: pygame 
 
-saveYUV422.py -p <port default /dev/ttyACM0> -f <filename default out.png>
+
+> saveYUV422.py -p <port default /dev/ttyACM0> -f <filename default out.png>
 
 save an image with: PIL
 
-tkinterface.py <port, default /dev/ttyACM0>
+
+> tkinterface.py <port, default /dev/ttyACM0>
 
 is a small interface made with: Tkinter
 
