@@ -9,14 +9,19 @@ Y=luma, Cb=blue chroma, Cr=red chroma. Chroma red is the difference between red 
 Y, Cb and Cr are 1 byte and they are transmitted by the pins D0-D7 on each PCLK rising. As the Due can store only Y OR CbCr, it sends two scans: first the luma and then the chroma. A small script in python fetch the two scans and translate them in an RGB image. Timing is fundamental, that's why it's important to use the native USB port of the Due, which is faster than the programming one.
 
 Python scripts need some libraries
+
 showYUV422.py <port, default /dev/ttyACM0>
+
 shows the image with: pygame 
 
 saveYUV422.py -p <port default /dev/ttyACM0> -f <filename default out.png>
+
 save an image with: PIL
 
 tkinterface.py <port, default /dev/ttyACM0>
+
 is a small interface made with: Tkinter
+
 it shows the image and has two inputs -
  read accepts one hexadecimal number in format 0x00, it queries a register of the OV7670
  write accepts two hex numbers, it writes a value in a register
